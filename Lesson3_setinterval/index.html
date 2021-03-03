@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Set-Interval</title>
+  </head>
+  <body>
+    <h1>Cyclone Arcade game</h1>
+    <div id="light-bulbs"></div>
+    <div>
+      <input type="range" id="bulbCount" name="vol" min="15" max="50" />
+      <label for="bulbCount"
+        >Number of bulbs selection (between 15 and 50):</label
+      >
+    </div>
+
+    <div>
+      <input type="range" id="speed" name="speed" min="10" max="500" />
+      <label for="speed">DELAY (between 10 and 500):</label>
+    </div>
+
+    <div>
+      <button id="start-btn">Start</button>
+      <button id="stop-btn">Stop</button>
+      <button onclick="window.location.reload(true)">Reset</button>
+    </div>
+
+    <div>
+      <p id="message"></p>
+    </div>
+
+    <script src="script.js">
+      Stop
+    </script>
+  </body>
+</html>
