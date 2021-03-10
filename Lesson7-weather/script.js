@@ -9,8 +9,35 @@ weather.temperature = {
   unit: "celsius",
 };
 
-/**   weather data api */
+const KELVIN = 273;
+const key = "82005d27a116c2880c8f0fcb866998a0";
 
+/** geolocation position getting through navigator.geolocation*/
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(setPosition, showError);
+} else {
+  notificationElement.style.display = "block";
+  notificationElement.innerHTML = `<p>Browser not support Geolocation</p>`;
+}
+
+/** get user position */
+function setPosition(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  getweather(latitude, longitude);
+}
+
+/**show error is issue with geolocation service */
+function showError(error) {
+  (notificationElement.style.display = "block"),
+    (notificationElement.innerHTML = `<p>${error.message}</p>`);
+}
+
+/**   weather data api */
+function getWeather(latitude, longitude) {
+  let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
+  fetch(api).then();
+}
 /**getting data and displaying in UI */
 function displayWeather() {
   iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
