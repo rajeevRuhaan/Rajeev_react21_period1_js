@@ -11,51 +11,24 @@ weather.temperature = {
 
 const KELVIN = 273;
 const key = "92e62b34141b6fe50fe8e3935ae2e018";
+let city = prompt("Enter city name");
 
-/** geolocation position getting through navigator.geolocation*/
-if ("geolocation" in navigator) {
-  navigator.geolocation.getCurrentPosition(setPosition, showError);
-} else {
-  notificationElement.style.display = "block";
-  notificationElement.innerHTML = `<p>Browser not support Geolocation</p>`;
-}
+/*** fetching dataing using openweather api */
+let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}`;
+fetch(url)
+  .then((resp) => resp.json())
+  .then((data) => {
+    weather.temperature.value = Math.floor(data.main.temp - KELVIN);
+    weather.description = data.weather[0].description;
+    weather.iconId = data.weather[0].icon;
 
-/** get user position */
-function setPosition(position) {
-  let latitude = position.coords.latitude;
-  let longitude = position.coords.longitude;
-  getWeather(latitude, longitude);
-}
+    weather.city = data.name;
+    weather.country = data.sys.country;
+  })
+  .then(function () {
+    displayWeather();
+  });
 
-/**show error is issue with geolocation service */
-function showError(error) {
-  notificationElement.style.display = "block";
-  notificationElement.innerHTML = `<p>${error.message}</p>`;
-}
-
-/**   weather data api */
-function getWeather(latitude, longitude) {
-  let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${key}`;
-
-  fetch(api)
-    .then(function (res) {
-      let data = res.json();
-      console.log(data);
-      return data;
-    })
-    .then(function (data) {
-      weather.temperature.value = Math.floor(data.main.temp - KELVIN);
-      weather.description = data.weather[0].description;
-      weather.iconId = data.weather[0].icon;
-
-      weather.city = data.name;
-      weather.country = data.sys.country;
-    })
-    .then(function () {
-      displayWeather();
-    });
-}
-/**getting data and displaying in UI */
 function displayWeather() {
   iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
   tempElement.innerHTML = `${weather.temperature.value}° <span>C</span>`;

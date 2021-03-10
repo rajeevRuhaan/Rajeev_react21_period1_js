@@ -43,7 +43,7 @@ body {
 .weather-icon {
   width: 300px;
   height: 128px;
-  background-color: #721c24;
+  /* background-color: #721c24; */
 }
 .weather-icon img {
   display: block;
