@@ -1,1 +1,3 @@
 
+This app is made using HTML CSS and java script.
+i have used  https://openweathermap.org/ to get weather api and created application to display current  weather. the application uses latitude and longitude from your computer and display the weather of that place. Next script allows to add city name and display the weather of that city.
